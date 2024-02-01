@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#SBATCH -p shared
+#SBATCH -c 60
+#SBATCH --mem=100G
+#SBATCH --gres=tmp:400G
+#SBATCH -t 71:59:00
+#SBATCH --mail-user=gwhirons-alecrim1@sheffield.ac.uk
+#SBATCH --mail-type=BEGIN,END,FAIL
+
+cd /nobackup/qkdf72/helixer/Annotation
+
+module purge
+
+module load bioinformatics
+
+module load orfipy
+
+###### check which file will produce the largest open reading frame reads either from helixer which is gff3read produced or the assembled genome
+
+orfipy /nobackup/qkdf72/blobtools/hifiasm_H.moselyanum_out.bp.p_ctg.fa --dna orfs.fa --min 10 --max 20000 --procs 4 --table 1 --outdir orfs_H.m_non_annotated_out
+
